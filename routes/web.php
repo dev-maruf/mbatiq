@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/change', 'HomeController@changeState')->name('change.state');
+Route::get('/temp', 'HomeController@getTempAPI')->name('temp');

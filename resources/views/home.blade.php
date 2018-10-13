@@ -21,7 +21,12 @@
                             <button type="button" id="main-btn" class="btn btn-success waves-effect">
                                 <i class="material-icons">power_settings_new</i>
                                 <span id="main-label">Switch On</span>                            
-                            </div>                            
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-{{$temp['color']}}" id="temp" role="progressbar" aria-valuenow="{{$temp['val']}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$temp['val']}}%;">
+                                    {{$temp['val']}}&deg;C
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>                
@@ -78,5 +83,21 @@
             }
         });
     }
+
+    var initialTempColor = "{{$temp['color']}}";
+
+    setInterval(function () {
+        $.getJSON('{{route('temp')}}', function (data) {
+            var temp = data.val;
+            var color = data.color;
+            $('#temp').css('width', temp+'%').attr('aria-valuenow', temp);
+            $('#temp').html(temp+"&deg;C");
+            if(initialTempColor != color){
+                initialTempColor = color;
+                $('#temp').removeClass();
+                $('#temp').addClass("progress-bar progress-bar-"+color);
+            }
+        });         
+    }, 1000);
 </script>
 @endsection
