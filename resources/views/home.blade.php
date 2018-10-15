@@ -31,6 +31,33 @@
                     </div>
                 </div>                
             </div>
+
+            @if(Auth::user()->stream != null)
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                Live Camera                                
+                            </h2>                            
+                        </div>
+                        <div class="body">                                                                              
+                            <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
+                            <div style="text-align: center;" id="SamplePlayerDivID"></div>
+                            <script type="text/javascript">
+                            var options = {
+                                width: 854,
+                                height: 480,
+                                channel: "{{ Auth::user()->stream }}",
+                                controls: false
+                            };
+                            var player = new Twitch.Player("SamplePlayerDivID", options);
+                            </script>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            @endif
         </div>
     </div>
 </div>
